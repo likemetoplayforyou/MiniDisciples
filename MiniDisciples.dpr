@@ -10,7 +10,9 @@ uses
   UDTeamFrame in 'UDTeamFrame.pas' {frTeam: TFrame},
   UDEnvironment in 'UDEnvironment.pas',
   UDDM in 'UDDM.pas' {DDM},
-  FlipReverseRotateLibrary in 'Libs\FlipReverseRotateLibrary.pas';
+  FlipReverseRotateLibrary in 'Libs\FlipReverseRotateLibrary.pas',
+  UUtils in 'Core\UUtils.pas',
+  UPaintUtils in 'UPaintUtils.pas';
 
 {$R *.res}
 

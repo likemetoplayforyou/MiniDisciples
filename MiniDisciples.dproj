@@ -64,6 +64,8 @@
 				<Form>DDM</Form>
 			</DCCReference>
 			<DCCReference Include="Libs\FlipReverseRotateLibrary.pas"/>
+			<DCCReference Include="Core\UUtils.pas"/>
+			<DCCReference Include="UPaintUtils.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
