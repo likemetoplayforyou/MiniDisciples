@@ -21,21 +21,6 @@ type
   end;
 
 
-  TDTeam = class(TObject)
-  private
-    FDUnits: TList<TDUnit>;
-
-    function GetDUnits: TEnumerable<TDUnit>;
-  public
-    constructor Create;
-    destructor Destroy; override;
-
-    procedure AddDUnit(ADUnit: TDUnit);
-
-    property DUnits: TEnumerable<TDUnit> read GetDUnits;
-  end;
-
-
 implementation
 
 { TDTeamRow }
@@ -63,34 +48,6 @@ end;
 procedure TDTeamRow.SetDUnit(AIndex: integer; AUnit: TDUnit);
 begin
 
-end;
-
-
-{ TDTeam }
-
-procedure TDTeam.AddDUnit(ADUnit: TDUnit);
-begin
-  FDUnits.Add(ADUnit);
-end;
-
-
-constructor TDTeam.Create;
-begin
-  inherited Create;
-  FDUnits := TObjectList<TDUnit>.Create(true);
-end;
-
-
-destructor TDTeam.Destroy;
-begin
-  FDUnits.Free;
-  inherited;
-end;
-
-
-function TDTeam.GetDUnits: TEnumerable<TDUnit>;
-begin
-  Result := FDUnits;
 end;
 
 
