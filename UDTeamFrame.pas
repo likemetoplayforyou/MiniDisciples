@@ -49,14 +49,15 @@ var
 begin
   pb := Sender as TDPaintBox;
 
-  srcBitmap := Environment.GetImageByUnitType(pb.DUnit.UnitType).Picture.Bitmap;
+  srcBitmap := Environment.GetBitmapByUnitType(pb.DUnit.UnitType);
+  //srcBitmap := Environment.GetImageByUnitType(pb.DUnit.UnitType).Picture.Bitmap;
   if not FIsLeft then
-    srcBitmap := TOwnValue<TBitmap>.Own(CopyBitmap(srcBitmap)).Value;
+    srcBitmap := TOwnValue<TBitmap>.Own(CopyBitmap(srcBitmap, true)).Value;
   pb.Canvas.StretchDraw(pb.ClientRect, srcBitmap);
 
   if pb.DUnit = FActiveDUnit then begin
-    pb.Canvas.Pen.Color := 255;
-    pb.Canvas.Pen.Width := 5;
+    pb.Canvas.Pen.Color := clRed;
+    pb.Canvas.Pen.Width := 12;
     //pb.Canvas.
 
     //pb.Canvas.Brush.Color := clWhite;
