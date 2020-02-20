@@ -11,6 +11,7 @@ type
   TfrTeam = class(TFrame)
   private
     { Private declarations }
+    procedure DUnitPanelClick(Sender: TObject);
   public
     { Public declarations }
     procedure Init(ATeam: TDTeam; AIsLeft: boolean);
@@ -26,6 +27,12 @@ uses
   UDUnit, UDEnvironment;
 
 { TfrTeam }
+
+procedure TfrTeam.DUnitPanelClick(Sender: TObject);
+begin
+  Sleep(1);
+end;
+
 
 procedure TfrTeam.Init(ATeam: TDTeam; AIsLeft: boolean);
 
@@ -44,35 +51,41 @@ procedure TfrTeam.Init(ATeam: TDTeam; AIsLeft: boolean);
 
 var
   dunit: TDUnit;
+  pn: TPanel;
   img: TImage;
   srcBitmap: TBitmap;
 begin
   for dunit in ATeam.DUnits do begin
-    img := TImage.Create(Self);
-    img.Parent := Self;
-    img.Stretch := true;
-    //img.OnClick
+    pn := TPanel.Create(Self);
+    pn.Parent := Self;
+    pn.OnClick := DUnitPanelClick;
 
-    img.Height := ClientHeight div 3;
-    img.Top := img.Height * dunit.Cell;
+    img := TImage.Create(Self);
+    img.Parent := pn;
+    img.Align := alClient;
+    img.Stretch := true;
+    //img.OnClick := DUnitPanelClick;
+
+    pn.Height := ClientHeight div 3;
+    pn.Top := pn.Height * dunit.Cell;
 
     if dunit.DoubleCell then begin
-      img.Width := ClientWidth;
-      img.Left := 0;
+      pn.Width := ClientWidth;
+      pn.Left := 0;
     end
     else begin
-      img.Width := ClientWidth div 2;
+      pn.Width := ClientWidth div 2;
       if AIsLeft then begin
         if dunit.Row = trtFront then
-          img.Left := img.Width
+          pn.Left := pn.Width
         else
-          img.Left := 0;
+          pn.Left := 0;
       end
       else begin
         if dunit.Row = trtFront then
-          img.Left := 0
+          pn.Left := 0
         else
-          img.Left := img.Width;
+          pn.Left := pn.Width;
       end;
     end;
 
@@ -81,6 +94,9 @@ begin
       img.Picture.Bitmap.Assign(srcBitmap)
     else
       copyReverse(img.Picture.Bitmap, srcBitmap);
+
+    if srcBitmap.ScanLine[0] <> nil then
+      sleep(1);
   end;
 end;
 
