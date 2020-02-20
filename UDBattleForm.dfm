@@ -15,24 +15,56 @@ object frmBattle: TfrmBattle
   OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
-  inline frLeftTeam: TfrTeam
+  object pnLeftTeam: TPanel
     Left = 0
     Top = 0
-    Width = 310
+    Width = 320
     Height = 445
     Align = alLeft
+    Caption = 'pnLeftTeam'
     TabOrder = 0
-    ExplicitLeft = 72
-    ExplicitTop = 3
+    inline frLeftTeam: TfrTeam
+      AlignWithMargins = True
+      Left = 6
+      Top = 6
+      Width = 308
+      Height = 433
+      Margins.Left = 5
+      Margins.Top = 5
+      Margins.Right = 5
+      Margins.Bottom = 5
+      Align = alClient
+      Color = clBtnFace
+      ParentColor = False
+      TabOrder = 0
+      ExplicitHeight = 445
+    end
   end
-  inline frRightTeam: TfrTeam
-    Left = 444
+  object pnRightTeam: TPanel
+    Left = 434
     Top = 0
-    Width = 310
+    Width = 320
     Height = 445
     Align = alRight
+    Caption = 'pnRightTeam'
     TabOrder = 1
-    ExplicitLeft = 406
-    ExplicitHeight = 445
+    ExplicitLeft = 569
+    inline frRightTeam: TfrTeam
+      AlignWithMargins = True
+      Left = 6
+      Top = 6
+      Width = 308
+      Height = 433
+      Margins.Left = 5
+      Margins.Top = 5
+      Margins.Right = 5
+      Margins.Bottom = 5
+      Align = alClient
+      Color = clBtnFace
+      ParentColor = False
+      TabOrder = 0
+      ExplicitLeft = 444
+      ExplicitHeight = 445
+    end
   end
 end

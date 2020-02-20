@@ -3,5 +3,7 @@ object frTeam: TfrTeam
   Top = 0
   Width = 310
   Height = 426
+  Color = clBtnFace
+  ParentColor = False
   TabOrder = 0
 end

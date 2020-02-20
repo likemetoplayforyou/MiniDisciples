@@ -4,12 +4,14 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs,
-  UDTeam, UDTeamFrame;
+  Dialogs, ExtCtrls,
+  UDUnit, UDTeamFrame;
 
 type
   TfrmBattle = class(TForm)
+    pnLeftTeam: TPanel;
     frLeftTeam: TfrTeam;
+    pnRightTeam: TPanel;
     frRightTeam: TfrTeam;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -26,9 +28,6 @@ type
 implementation
 
 {$R *.dfm}
-
-uses
-  UDUnit;
 
 procedure TfrmBattle.FormCreate(Sender: TObject);
 
@@ -50,10 +49,10 @@ procedure TfrmBattle.FormCreate(Sender: TObject);
 begin
   inherited;
   FLeftTeam := TDTeam.Create;
-  addUnit(FLeftTeam, utSwordsMan, false, trtBack, 0);
+  addUnit(FLeftTeam, utSwordsMan, false, trtFront, 0);
+  addUnit(FLeftTeam, utNovice, false, trtBack, 0);
   addUnit(FLeftTeam, utArcher, false, trtFront, 1);
   addUnit(FLeftTeam, utStudent, true, trtFront, 2);
-  addUnit(FLeftTeam, utNovice, false, trtFront, 0);
 
   FRightTeam := TDTeam.Create;
   addUnit(FRightTeam, utSwordsMan, false, trtBack, 0);
@@ -62,6 +61,8 @@ begin
 
   frLeftTeam.Init(FLeftTeam, true);
   frRightTeam.Init(FRightTeam, false);
+
+  pnLeftTeam.Color := clYellow;
 end;
 
 
