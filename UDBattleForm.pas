@@ -53,6 +53,7 @@ begin
   addUnit(FLeftTeam, utSwordsMan, false, trtBack, 0);
   addUnit(FLeftTeam, utSwordsMan, false, trtFront, 1);
   addUnit(FLeftTeam, utSwordsMan, true, trtFront, 2);
+  addUnit(FLeftTeam, utSwordsMan, false, trtFront, 0);
 
   FRightTeam := TDTeam.Create;
   addUnit(FRightTeam, utSwordsMan, false, trtBack, 0);
