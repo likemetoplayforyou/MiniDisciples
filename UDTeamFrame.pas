@@ -5,13 +5,16 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, 
   Dialogs,
-  UDTeam;
+  UDTeam, UDUnit;
 
 type
   TfrTeam = class(TFrame)
   private
-    { Private declarations }
+    FIsLeft: boolean;
+    FActiveDUnit: TDUnit;
+
     procedure DUnitPanelClick(Sender: TObject);
+    procedure DUnitPaint(Sender: TObject);
   public
     { Public declarations }
     procedure Init(ATeam: TDTeam; AIsLeft: boolean);
@@ -24,9 +27,53 @@ implementation
 uses
   ExtCtrls,
   FlipReverseRotateLibrary,
-  UDUnit, UDEnvironment;
+  UUtils, UPaintUtils,
+  UDEnvironment;
+
+type
+  TDPaintBox = class(TPaintBox)
+  private
+    FDUnit: TDUnit;
+  public
+    property DUnit: TDUnit read FDUnit;
+  end;
+
 
 { TfrTeam }
+
+procedure TfrTeam.DUnitPaint(Sender: TObject);
+var
+  pb: TDPaintBox;
+  srcBitmap: TBitmap;
+  rc: TRect;
+begin
+  pb := Sender as TDPaintBox;
+
+  srcBitmap := Environment.GetImageByUnitType(pb.DUnit.UnitType).Picture.Bitmap;
+  if not FIsLeft then
+    srcBitmap := TOwnValue<TBitmap>.Own(CopyBitmap(srcBitmap)).Value;
+  pb.Canvas.StretchDraw(pb.ClientRect, srcBitmap);
+
+  if pb.DUnit = FActiveDUnit then begin
+    pb.Canvas.Pen.Color := 255;
+    pb.Canvas.Pen.Width := 5;
+    //pb.Canvas.
+
+    //pb.Canvas.Brush.Color := clWhite;
+    //pb.Canvas.Brush.Color := 255 * 257;
+    rc := pb.ClientRect;
+//    pb.Canvas.Polygon(
+//      [
+//        Point(rc.Left, rc.Top), Point(rc.Right, rc.Top),
+//        Point(rc.Right, rc.Bottom), Point(rc.Left, rc.Bottom)
+//      ]
+//    );
+    DrawRect(pb.Canvas, pb.ClientRect);
+    //pb.Canvas.FrameRect(Rect(10, 10, 20, 20));
+    //pb.Canvas.FrameRect(pb.ClientRect);
+  end;
+end;
+
 
 procedure TfrTeam.DUnitPanelClick(Sender: TObject);
 begin
@@ -53,18 +100,26 @@ var
   dunit: TDUnit;
   pn: TPanel;
   img: TImage;
+  pb: TDPaintBox;
   srcBitmap: TBitmap;
 begin
+  FIsLeft := AIsLeft;
+
   for dunit in ATeam.DUnits do begin
+    if FActiveDUnit = nil then
+      FActiveDUnit := dunit;
+
     pn := TPanel.Create(Self);
     pn.Parent := Self;
     pn.OnClick := DUnitPanelClick;
 
-    img := TImage.Create(Self);
-    img.Parent := pn;
-    img.Align := alClient;
-    img.Stretch := true;
-    //img.OnClick := DUnitPanelClick;
+    pb := TDPaintBox.Create(Self);
+    pb.FDUnit := dunit;
+    pb.Parent := pn;
+    pb.Align := alClient;
+    pb.OnPaint := DUnitPaint;
+    //pb.Stretch := true;
+    pb.OnClick := DUnitPanelClick;
 
     pn.Height := ClientHeight div 3;
     pn.Top := pn.Height * dunit.Cell;
@@ -89,14 +144,14 @@ begin
       end;
     end;
 
-    srcBitmap := Environment.GetImageByUnitType(dunit.UnitType).Picture.Bitmap;
-    if AIsLeft then
-      img.Picture.Bitmap.Assign(srcBitmap)
-    else
-      copyReverse(img.Picture.Bitmap, srcBitmap);
+//    srcBitmap := Environment.GetImageByUnitType(dunit.UnitType).Picture.Bitmap;
+//    if AIsLeft then
+//      img.Picture.Bitmap.Assign(srcBitmap)
+//    else
+//      copyReverse(img.Picture.Bitmap, srcBitmap);
 
-    if srcBitmap.ScanLine[0] <> nil then
-      sleep(1);
+//    if srcBitmap.ScanLine[0] <> nil then
+//      sleep(1);
   end;
 end;
 
