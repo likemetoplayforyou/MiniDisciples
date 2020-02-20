@@ -51,14 +51,14 @@ begin
   inherited;
   FLeftTeam := TDTeam.Create;
   addUnit(FLeftTeam, utSwordsMan, false, trtBack, 0);
-  addUnit(FLeftTeam, utSwordsMan, false, trtFront, 1);
-  addUnit(FLeftTeam, utSwordsMan, true, trtFront, 2);
-  addUnit(FLeftTeam, utSwordsMan, false, trtFront, 0);
+  addUnit(FLeftTeam, utArcher, false, trtFront, 1);
+  addUnit(FLeftTeam, utStudent, true, trtFront, 2);
+  addUnit(FLeftTeam, utNovice, false, trtFront, 0);
 
   FRightTeam := TDTeam.Create;
   addUnit(FRightTeam, utSwordsMan, false, trtBack, 0);
-  addUnit(FRightTeam, utSwordsMan, true, trtBack, 1);
-  addUnit(FRightTeam, utSwordsMan, false, trtFront, 2);
+  addUnit(FRightTeam, utNovice, true, trtBack, 1);
+  addUnit(FRightTeam, utArcher, false, trtFront, 2);
 
   frLeftTeam.Init(FLeftTeam, true);
   frRightTeam.Init(FRightTeam, false);
