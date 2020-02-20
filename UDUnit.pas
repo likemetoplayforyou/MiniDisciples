@@ -3,7 +3,7 @@ unit UDUnit;
 interface
 
 type
-  TDUnitType = (utSwordsMan, utArcher);
+  TDUnitType = (utSwordsMan, utArcher, utStudent, utNovice);
 
   TDAttackType = (atNear, atAnyOne, atAll);
 
@@ -13,6 +13,7 @@ type
   TDUnit = class(TObject)
   private
     FUnitType: TDUnitType;
+    FName: string;
     FHealth: integer;
     FInitiative: integer;
     FAttackType: TDAttackType;
@@ -32,6 +33,20 @@ type
     property Cell: integer read FCell write FCell;
   end;
 
+
+  TDUnitInfo = record
+    UnitType: TDUnitType;
+    Name: string;
+  end;
+
+
+const
+  DUNIT_INFOS: array [TDUnitType] of TDUnitInfo = (
+    (UnitType: utSwordsMan; Name: 'SwordsMan'),
+    (UnitType: utArcher; Name: 'Archer'),
+    (UnitType: utStudent; Name: 'Student'),
+    (UnitType: utNovice; Name: 'Novice')
+  );
 
 implementation
 
